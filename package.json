@@ -1,0 +1,38 @@
+{
+  "name": "pigmig",
+  "version": "0.0.1",
+  "description": "Pigmig is the a postgresql database migration library",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "tsc",
+    "watch": "nodemon",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aegatlin/pigmig.git"
+  },
+  "author": "Austin Gatlin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aegatlin/pigmig/issues"
+  },
+  "homepage": "https://github.com/aegatlin/pigmig#readme",
+  "dependencies": {
+    "@types/node": "^12.7.8",
+    "@types/pg": "^7.11.2",
+    "eor": "^0.1.4",
+    "nodemon": "^1.19.3",
+    "pg": "^7.12.1",
+    "typescript": "^3.6.3"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.2.3",
+    "@types/mocha": "^5.2.7",
+    "@types/sinon": "^7.0.13",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.1",
+    "sinon": "^7.5.0",
+    "ts-node": "^8.4.1"
+  }
+}
