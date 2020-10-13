@@ -1,6 +1,6 @@
 # pigmig
 
-Pigmig is a postgresql database migration tool. It has a minimal feature-set.
+Pigmig is a postgresql database migration tool. It has a minimal feature set.
 
 1. Pigmig creates a migrations table if one does not already exist.
 1. Pigmig verifies the checksums of previously ran migrations, throwing an error and exiting on failure.
