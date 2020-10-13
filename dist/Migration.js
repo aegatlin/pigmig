@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Migration = void 0;
 var fs_1 = require("fs");
 var path_1 = require("path");
 var crypto_1 = require("crypto");

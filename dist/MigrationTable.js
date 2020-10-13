@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MigrationTable = void 0;
 var pg_1 = require("pg");
 var Migration_1 = require("./Migration");
 var eor_1 = require("eor");

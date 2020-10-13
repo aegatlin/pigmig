@@ -36,6 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.migrate = exports.log = void 0;
 var Migrations_1 = require("./Migrations");
 var eor_1 = require("eor");
 function log(sore) {

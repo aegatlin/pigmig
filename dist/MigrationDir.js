@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.MigrationDir = void 0;
 var path_1 = require("path");
 var eor_1 = require("eor");
 var fs_1 = require("fs");
