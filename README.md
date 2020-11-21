@@ -10,7 +10,7 @@ Pigmig is a postgresql database migration tool. It has a minimal feature set.
 
 1. Set `process.env.DATABASE_URL`
 1. Store (only) `.sql` scripts in a migrations folder
-    * Ensure they will be ordered correctly by the filesystem, e.g., `001.setup.sql`, `002.other.sql`, ...
+   - Ensure they will be ordered correctly by the filesystem, e.g., `001.setup.sql`, `002.other.sql`, ...
 1. Do not have a `migrations` table
 
 ## Usage
