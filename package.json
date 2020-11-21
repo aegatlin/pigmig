@@ -4,7 +4,8 @@
   "description": "Pigmig is a postgresql database migration tool.",
   "main": "dist/index.js",
   "scripts": {
-    "compile": "tsc"
+    "compile": "tsc",
+    "publish": "npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
@@ -32,11 +33,11 @@
   },
   "homepage": "https://github.com/aegatlin/pigmig#readme",
   "dependencies": {
-    "eor": "^0.1.4",
-    "pg": "^7.12.1"
+    "eor": "^0.1.5",
+    "pg": "^8.5.1"
   },
   "devDependencies": {
-    "@types/pg": "^7.11.2",
-    "typescript": "^3.6.3"
+    "@types/pg": "^7.14.7",
+    "typescript": "^4.1.2"
   }
 }
