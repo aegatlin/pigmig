@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "compile": "tsc",
-    "publish": "npm version patch && npm publish"
+    "pub": "npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
