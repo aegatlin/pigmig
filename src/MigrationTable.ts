@@ -4,10 +4,8 @@ import { eor } from 'eor'
 import { log } from '.'
 
 export class MigrationTable {
-  readonly client: Client = new Client({
-    connectionString: process.env.DATABASE_URL,
-    ssl: true
-  })
+  readonly client: Client = new Client({ connectionString: process.env.DATABASE_URL })
+
   constructor() {}
 
   async connect(): Promise<void> {

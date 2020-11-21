@@ -45,7 +45,7 @@ function log(sore) {
     return undefined;
 }
 exports.log = log;
-exports.migrate = function (dirPath) { return __awaiter(void 0, void 0, void 0, function () {
+var migrate = function (dirPath) { return __awaiter(void 0, void 0, void 0, function () {
     var migrations, e;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -60,3 +60,4 @@ exports.migrate = function (dirPath) { return __awaiter(void 0, void 0, void 0, 
         }
     });
 }); };
+exports.migrate = migrate;

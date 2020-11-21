@@ -44,8 +44,7 @@ var _1 = require(".");
 var MigrationTable = /** @class */ (function () {
     function MigrationTable() {
         this.client = new pg_1.Client({
-            connectionString: process.env.DATABASE_URL,
-            ssl: true
+            connectionString: process.env.DATABASE_URL
         });
     }
     MigrationTable.prototype.connect = function () {
