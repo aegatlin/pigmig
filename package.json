@@ -11,7 +11,7 @@
     "pub": "npm version patch && npm publish && git push",
     "test": "mocha",
     "cli": "ts-node src/cli.ts",
-    "format": "prettier --check src"
+    "format": "prettier --write src"
   },
   "repository": {
     "type": "git",

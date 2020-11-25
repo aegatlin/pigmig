@@ -50,9 +50,15 @@ export const getNewMigs = (dbMigs: Migration[], fileMigs: Migration[]) => {
 
 export const verifyChecksums = (dbMigs: Migration[], fileMigs: Migration[]) => {
   dbMigs.forEach((dbMig) => {
-    const fileMig = fileMigs.find((fileMig) => dbMig.checksum === fileMig.checksum)
+    const fileMig = fileMigs.find(
+      (fileMig) => dbMig.checksum === fileMig.checksum
+    )
 
-    if (!fileMig || dbMig.sql !== fileMig.sql || dbMig.fileName !== fileMig.fileName) {
+    if (
+      !fileMig ||
+      dbMig.sql !== fileMig.sql ||
+      dbMig.fileName !== fileMig.fileName
+    ) {
       fail(`Checksum verification failed for ${dbMig.fileName}.`)
     }
   })
@@ -91,7 +97,9 @@ type MigrationRow = {
 
 const getDbMigs = async (dbClient: Client): Promise<Migration[]> => {
   const [e, result] = await eor(
-    dbClient.query<MigrationRow>('SELECT (file_name, sql, checksum) from migrations;')
+    dbClient.query<MigrationRow>(
+      'SELECT (file_name, sql, checksum) FROM migrations;'
+    )
   )
   if (e) fail(e)
   return result.rows.map(({ file_name, sql, checksum }) => ({
