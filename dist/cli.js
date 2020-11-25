@@ -20,3 +20,4 @@ var fileName = timestamp + "." + fileNamePart + ".sql";
 var filePath = path_1.default.resolve(dirPath, fileName);
 fs_1.default.writeFileSync(filePath, '');
 console.log("Pigmig: New migration file successfully created: " + filePath);
+//# sourceMappingURL=cli.js.map

@@ -18,7 +18,7 @@ export const migrate = async (dirPath: string) => {
   const fileMigs: Migration[] = getFileMigs(dirPath)
 
   await dbClient.connect()
-  dbClient.on('error', e => fail(`DB Client Connection error: ${e}`))
+  dbClient.on('error', (e) => fail(`DB Client Connection error: ${e}`))
 
   await ensureMigTable(dbClient)
   const dbMigs: Migration[] = await getDbMigs(dbClient)
@@ -30,15 +30,17 @@ export const migrate = async (dirPath: string) => {
 }
 
 const runNewMigs = async (dbClient: Client, newMigs: Migration[]) => {
-  for (const {fileName, sql, checksum} of newMigs) {
+  for (const { fileName, sql, checksum } of newMigs) {
     const [e] = await eor(dbClient.query(sql))
     if (e) fail(`Failed to execute sql for ${fileName}: ${e}`)
     console.log(`Pigmig: Migration successful for ${fileName}`)
 
-    const [err] = await eor(dbClient.query(
-      'INSERT INTO migrations (file_name, sql, checksum) VALUES ($1, $2, $3);',
-      [fileName, sql, checksum]
-    ))
+    const [err] = await eor(
+      dbClient.query(
+        'INSERT INTO migrations (file_name, sql, checksum) VALUES ($1, $2, $3);',
+        [fileName, sql, checksum]
+      )
+    )
     if (err) fail(`Failed to update migration table for ${fileName}: ${err}`)
   }
 }
@@ -99,7 +101,7 @@ type MigrationRow = {
 const getDbMigs = async (dbClient: Client): Promise<Migration[]> => {
   const [e, result] = await eor(
     dbClient.query<MigrationRow>(
-      'SELECT (file_name, sql, checksum) FROM migrations;'
+      'SELECT file_name, sql, checksum FROM migrations;'
     )
   )
   if (e) fail(e)

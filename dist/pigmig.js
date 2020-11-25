@@ -152,7 +152,7 @@ var getDbMigs = function (dbClient) { return __awaiter(void 0, void 0, void 0, f
     var _a, e, result;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, eor_1.eor(dbClient.query('SELECT (file_name, sql, checksum) FROM migrations;'))];
+            case 0: return [4 /*yield*/, eor_1.eor(dbClient.query('SELECT file_name, sql, checksum FROM migrations;'))];
             case 1:
                 _a = _b.sent(), e = _a[0], result = _a[1];
                 if (e)
@@ -175,3 +175,4 @@ var fail = function (error) {
     if (error === void 0) { error = ''; }
     throw new Error("Pigmig: Error: " + error);
 };
+//# sourceMappingURL=pigmig.js.map
