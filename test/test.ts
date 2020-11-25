@@ -1,5 +1,5 @@
 import { expect } from 'chai'
-import { getNewMigs, Migration, verifyChecksums } from '../src/pigmig'
+import { getNewMigs, Migration, verifyChecksums } from '../src/code/pigmig'
 
 describe('getNewMigs', () => {
   it('returns an empty array for empty migs', () => {

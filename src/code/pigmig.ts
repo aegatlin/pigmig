@@ -13,20 +13,26 @@ export type Migration = {
 const dbClient = new Client({ connectionString: process.env.DATABASE_URL })
 
 export const migrate = async (dirPath: string) => {
-  console.log('Pigmig: Migrations beginning...')
+  console.log('Pigmig: Pigmig initiated...')
   ensureDirPath(dirPath)
   const fileMigs: Migration[] = getFileMigs(dirPath)
 
+  console.log('Pigmig: Checking for new migrations...')
   await dbClient.connect()
   dbClient.on('error', (e) => fail(`DB Client Connection error: ${e}`))
-
   await ensureMigTable(dbClient)
   const dbMigs: Migration[] = await getDbMigs(dbClient)
   verifyChecksums(dbMigs, fileMigs)
   const newMigs = getNewMigs(dbMigs, fileMigs)
-  await runNewMigs(dbClient, newMigs)
+  if (newMigs.length < 1) {
+    console.log('Pigmig: No new migrations detected.')
+  } else {
+    console.log('Pigmig: New migrations detected.')
+    console.log('Pigmig: Running new migrations...')
+    await runNewMigs(dbClient, newMigs)
+  }
   await dbClient.end()
-  console.log('Pigmig: Migrations complete')
+  console.log('Pigmig: Pigmig complete.')
 }
 
 const runNewMigs = async (dbClient: Client, newMigs: Migration[]) => {
@@ -119,3 +125,5 @@ const generateChecksum = (text: string) => {
 const fail = (error: Error | string = '') => {
   throw new Error(`Pigmig: Error: ${error}`)
 }
+
+export default { migrate }

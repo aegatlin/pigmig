@@ -51,9 +51,10 @@ var migrate = function (dirPath) { return __awaiter(void 0, void 0, void 0, func
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log('Pigmig: Migrations beginning...');
+                console.log('Pigmig: Pigmig initiated...');
                 ensureDirPath(dirPath);
                 fileMigs = getFileMigs(dirPath);
+                console.log('Pigmig: Checking for new migrations...');
                 return [4 /*yield*/, dbClient.connect()];
             case 1:
                 _a.sent();
@@ -66,13 +67,20 @@ var migrate = function (dirPath) { return __awaiter(void 0, void 0, void 0, func
                 dbMigs = _a.sent();
                 exports.verifyChecksums(dbMigs, fileMigs);
                 newMigs = exports.getNewMigs(dbMigs, fileMigs);
-                return [4 /*yield*/, runNewMigs(dbClient, newMigs)];
+                if (!(newMigs.length < 1)) return [3 /*break*/, 4];
+                console.log('Pigmig: No new migrations detected.');
+                return [3 /*break*/, 6];
             case 4:
-                _a.sent();
-                return [4 /*yield*/, dbClient.end()];
+                console.log('Pigmig: New migrations detected.');
+                console.log('Pigmig: Running new migrations...');
+                return [4 /*yield*/, runNewMigs(dbClient, newMigs)];
             case 5:
                 _a.sent();
-                console.log('Pigmig: Migrations complete');
+                _a.label = 6;
+            case 6: return [4 /*yield*/, dbClient.end()];
+            case 7:
+                _a.sent();
+                console.log('Pigmig: Pigmig complete.');
                 return [2 /*return*/];
         }
     });
@@ -175,4 +183,5 @@ var fail = function (error) {
     if (error === void 0) { error = ''; }
     throw new Error("Pigmig: Error: " + error);
 };
+exports.default = { migrate: exports.migrate };
 //# sourceMappingURL=pigmig.js.map

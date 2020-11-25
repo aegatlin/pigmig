@@ -2,9 +2,10 @@
   "name": "pigmig",
   "version": "0.1.2",
   "description": "Pigmig is a postgresql database migration tool.",
-  "main": "dist/index.js",
+  "main": "dist/code/pigmig.js",
   "bin": {
-    "pigmig.newmig": "dist/cli.js"
+    "pigmig.newmig": "dist/cli/newmig.js",
+    "pigmig.migrate": "dist/cli/migrate.js"
   },
   "scripts": {
     "build": "rm -rf dist && tsc",

@@ -12,7 +12,9 @@ if (!dirPath || !fileNamePart) {
   console.log(
     'Pigmig: Error: Please provide a migration directory and a desired file name.'
   )
-  console.log('Pigmig: Example: pigmig.newmig src/db/migrations add_user_table')
+  console.log(
+    'Pigmig: Example: npx pigmig.newmig src/db/migrations add_user_table'
+  )
   console.log('Pigmig: Exiting early. No new migration file has been created.')
   process.exit()
 }
