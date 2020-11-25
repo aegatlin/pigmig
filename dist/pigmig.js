@@ -57,6 +57,7 @@ var migrate = function (dirPath) { return __awaiter(void 0, void 0, void 0, func
                 return [4 /*yield*/, dbClient.connect()];
             case 1:
                 _a.sent();
+                dbClient.on('error', function (e) { return fail("DB Client Connection error: " + e); });
                 return [4 /*yield*/, ensureMigTable(dbClient)];
             case 2:
                 _a.sent();
@@ -78,30 +79,32 @@ var migrate = function (dirPath) { return __awaiter(void 0, void 0, void 0, func
 }); };
 exports.migrate = migrate;
 var runNewMigs = function (dbClient, newMigs) { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        newMigs.forEach(function (_a) {
-            var fileName = _a.fileName, sql = _a.sql, checksum = _a.checksum;
-            return __awaiter(void 0, void 0, void 0, function () {
-                var e, err;
-                return __generator(this, function (_b) {
-                    switch (_b.label) {
-                        case 0: return [4 /*yield*/, eor_1.eor(dbClient.query(sql))];
-                        case 1:
-                            e = (_b.sent())[0];
-                            if (e)
-                                fail(e);
-                            return [4 /*yield*/, eor_1.eor(dbClient.query('INSERT INTO migrations (file_name, sql, checksum) VALUES ($1, $2, $3);', [fileName, sql, checksum]))];
-                        case 2:
-                            err = (_b.sent())[0];
-                            if (err)
-                                fail(err);
-                            console.log("Pigmig: Migration successful: " + fileName);
-                            return [2 /*return*/];
-                    }
-                });
-            });
-        });
-        return [2 /*return*/];
+    var _i, newMigs_1, _a, fileName, sql, checksum, e, err;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _i = 0, newMigs_1 = newMigs;
+                _b.label = 1;
+            case 1:
+                if (!(_i < newMigs_1.length)) return [3 /*break*/, 5];
+                _a = newMigs_1[_i], fileName = _a.fileName, sql = _a.sql, checksum = _a.checksum;
+                return [4 /*yield*/, eor_1.eor(dbClient.query(sql))];
+            case 2:
+                e = (_b.sent())[0];
+                if (e)
+                    fail("Failed to execute sql for " + fileName + ": " + e);
+                console.log("Pigmig: Migration successful for " + fileName);
+                return [4 /*yield*/, eor_1.eor(dbClient.query('INSERT INTO migrations (file_name, sql, checksum) VALUES ($1, $2, $3);', [fileName, sql, checksum]))];
+            case 3:
+                err = (_b.sent())[0];
+                if (err)
+                    fail("Failed to update migration table for " + fileName + ": " + err);
+                _b.label = 4;
+            case 4:
+                _i++;
+                return [3 /*break*/, 1];
+            case 5: return [2 /*return*/];
+        }
     });
 }); };
 var getNewMigs = function (dbMigs, fileMigs) {
@@ -111,7 +114,9 @@ exports.getNewMigs = getNewMigs;
 var verifyChecksums = function (dbMigs, fileMigs) {
     dbMigs.forEach(function (dbMig) {
         var fileMig = fileMigs.find(function (fileMig) { return dbMig.checksum === fileMig.checksum; });
-        if (!fileMig || dbMig.sql !== fileMig.sql || dbMig.fileName !== fileMig.fileName) {
+        if (!fileMig ||
+            dbMig.sql !== fileMig.sql ||
+            dbMig.fileName !== fileMig.fileName) {
             fail("Checksum verification failed for " + dbMig.fileName + ".");
         }
     });
@@ -147,7 +152,7 @@ var getDbMigs = function (dbClient) { return __awaiter(void 0, void 0, void 0, f
     var _a, e, result;
     return __generator(this, function (_b) {
         switch (_b.label) {
-            case 0: return [4 /*yield*/, eor_1.eor(dbClient.query('SELECT (file_name, sql, checksum) from migrations;'))];
+            case 0: return [4 /*yield*/, eor_1.eor(dbClient.query('SELECT (file_name, sql, checksum) FROM migrations;'))];
             case 1:
                 _a = _b.sent(), e = _a[0], result = _a[1];
                 if (e)
