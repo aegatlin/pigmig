@@ -1,6 +1,6 @@
 {
   "name": "pigmig",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Pigmig is a postgresql database migration tool.",
   "main": "dist/code/pigmig.js",
   "bin": {
